@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 cortex-m-rt = "0.7"
 microbit-v2 = "0.13.0"
+nanorand = { version = "0.7.0", default-features = false, features = ["pcg64"] }
 rtt-target = "0.4"
 
 [dependencies.panic-rtt-target]
