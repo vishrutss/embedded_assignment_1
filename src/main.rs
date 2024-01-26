@@ -19,15 +19,11 @@ use nanorand::{pcg64::Pcg64, Rng, SeedableRng};
 fn randomize() -> [[u8; 5]; 5] {
 
     let mut image:[[u8; 5]; 5]=[[0;5];5];
-    let mut rng = nanorand::Pcg64::new_seed(0);
+    let mut rng = nanorand::Pcg64::new_seed(827);
     for i in 0..image.len() {
         for j in 0..image[i].len() {
             let b: bool = rng.generate();
-            if b {
-                image[i][j] = 1;
-            } else {
-                image[i][j] = 0;
-            }
+            image[i][j]=b as u8;
         }
     }
     image
