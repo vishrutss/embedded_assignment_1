@@ -18,7 +18,6 @@ use nanorand::{pcg64::Pcg64, Rng, SeedableRng};
 
 fn randomize(rng:&mut Pcg64, image:&mut [[u8;5];5]) {
 
-    let mut image:[[u8; 5]; 5]=[[0;5];5];
     for i in 0..image.len() {
         for j in 0..image[i].len() {
             image[i][j]=rng.generate_range(0..=1);
