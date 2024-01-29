@@ -16,17 +16,14 @@ use microbit::{
 
 use nanorand::{pcg64::Pcg64, Rng, SeedableRng};
 
-fn randomize() -> [[u8; 5]; 5] {
+fn randomize(rng:&mut Pcg64, image:&mut [[u8;5];5]) {
 
     let mut image:[[u8; 5]; 5]=[[0;5];5];
-    let mut rng = nanorand::Pcg64::new_seed(827);
     for i in 0..image.len() {
         for j in 0..image[i].len() {
-            let b: bool = rng.generate();
-            image[i][j]=b as u8;
+            image[i][j]=rng.generate_range(0..=1);
         }
     }
-    image
 }
 
 #[entry]
@@ -35,7 +32,9 @@ fn main() -> ! {
     let board = Board::take().unwrap();
     let pins = board.display_pins;
 
-    let mut image = randomize();
+    let mut image=[[0;5];5];
+    let mut rng = nanorand::Pcg64::new_seed(1);
+    randomize(&mut rng, &mut image);
 
     let mut delay = timer::Timer::new(board.TIMER0);
 
@@ -46,7 +45,7 @@ fn main() -> ! {
         display.show(&mut delay, image, 1000);
         life(&mut image);
         if done(&mut image) {
-            image = randomize();
+            randomize(&mut rng, &mut image);
         }
     }
 }
