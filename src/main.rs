@@ -17,20 +17,20 @@ use microbit::{
 use nanorand::{pcg64::Pcg64, Rng};
 
 fn randomize(rng: &mut Pcg64, image: &mut [[u8; 5]; 5]) {
-    for i in 0..image.len() {
-        for j in 0..image[i].len() {
-            image[i][j] = rng.generate_range(0..=1);
+    for row in image {
+        for cell in row {
+            *cell = rng.generate_range(0..=1);
         }
     }
 }
 
 fn complement(image: &mut [[u8; 5]; 5]) {
-    for i in 0..image.len() {
-        for j in 0..image[i].len() {
-            if image[i][j] == 0 {
-                image[i][j] = 1;
+    for row in image {
+        for cell in row {
+            if *cell == 0 {
+                *cell = 1;
             } else {
-                image[i][j] = 0;
+                *cell = 0;
             }
         }
     }
@@ -55,7 +55,7 @@ fn main() -> ! {
         rprintln!("showing");
         display.show(&mut delay, image, 1000);
         life(&mut image);
-        if done(&mut image) {
+        if done(&image) {
             delay.delay_ms(500u16);
             if buttons.button_a.is_high().unwrap() && buttons.button_b.is_high().unwrap() {
                 randomize(&mut rng, &mut image);
