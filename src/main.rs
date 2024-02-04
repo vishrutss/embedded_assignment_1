@@ -14,7 +14,7 @@ use microbit::{
     hal::{prelude::*, timer},
 };
 
-use nanorand::{pcg64::Pcg64, Rng, SeedableRng};
+use nanorand::{pcg64::Pcg64, Rng};
 
 fn randomize(rng: &mut Pcg64, image: &mut [[u8; 5]; 5]) {
     for i in 0..image.len() {
@@ -55,16 +55,22 @@ fn main() -> ! {
         rprintln!("showing");
         display.show(&mut delay, image, 1000);
         life(&mut image);
+        if done(&mut image) {
+            delay.delay_ms(500u16);
+            if buttons.button_a.is_high().unwrap() && buttons.button_b.is_high().unwrap() {
+                randomize(&mut rng, &mut image);
+            }
+        }
         if buttons.button_a.is_low().unwrap() {
             rprintln!("button A");
             randomize(&mut rng, &mut image)
         }
-        if buttons.button_b.is_low().unwrap() {
+        else if buttons.button_b.is_low().unwrap() {
             rprintln!("button B");
-            complement(&mut image)
+            complement(&mut image);
+            delay.delay_ms(500u16);
+            continue;
         }
-        if done(&mut image) {
-            randomize(&mut rng, &mut image);
-        }
+        delay.delay_ms(100u16);
     }
 }
