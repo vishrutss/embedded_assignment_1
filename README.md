@@ -11,6 +11,8 @@ Before the main loop I called the randomize function to randomize the board. The
 
 If button A was pressed the randomize function is called. If button B was pressed the complement function is called and a delay of 0.5 seconds is applied so that button presses are ignored. If no button is pressed normal life steps are taken.
 
+I did notice one thing. At the start when I call the randomize function before the main loop it always generates the same board pattern. But when I press button A it generates a new random board pattern. I am not sure why this happens. I tried to debug it but could not figure it out.
+
 I referred the following repositories to help me with this assignment:
 
 https://github.com/pdx-cs-rust-embedded/poll-button/blob/main/src/main.rs
