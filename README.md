@@ -1,7 +1,7 @@
 # Life
 ## Submitted by: Vishrut Sharma
 
-For this assignment I have implemented the game of life for the MB2 board. First I followed the steps to setup the board as taught in class and implemented blinky to see if the code was working. I then created 2 functions randomize and complement for this program.
+For this assignment I have implemented [Conway's game of life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) for the MB2 board. First I followed the steps to setup the board as taught in class and implemented blinky to see if the code was working. I then created 2 functions randomize and complement for this program.
 
 The randomize function takes a mutable reference to a Pcg64 random number generator and a mutable reference to the image grid. At first I had some trouble writing the code for this function as I had not used nanorand before. I then referred the class repository [poll-button](https://github.com/pdx-cs-rust-embedded/poll-button/blob/main/src/main.rs) which helped me figure out how to use the nanorand library. The randomize function iterates over each cell in the grid and assigns it a random value of either 0 or 1 using the generate_range method of the random number generator.
 
